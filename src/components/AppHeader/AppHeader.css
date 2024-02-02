@@ -1,0 +1,24 @@
+.app-header{
+    width: 90%;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 5%;
+    padding-right: 25%;
+    box-shadow: 1px 1px 10px grey;
+}
+
+.app-header-text{
+    font-size: 20px;
+    padding: 0px;
+}
+
+@media(max-width: 650px){
+    .app-header-text{
+        font-size: 15px;
+    }
+}

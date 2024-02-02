@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
+import { CountriesContainer } from '../pages';
 
 function App() {
   return (
-    <div className="App">
-      App
-    </div>
+    <CountriesContainer />
   );
 }
 
