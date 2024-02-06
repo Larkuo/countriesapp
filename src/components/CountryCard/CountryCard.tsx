@@ -7,6 +7,7 @@ interface CountryCardProps{
     population: number;
     region: string;
     capital?: string;
+    gotoCountry: () => void;
 }
 
 export function CountryCard({
@@ -14,10 +15,11 @@ export function CountryCard({
     flagImage,
     population,
     region,
-    capital
+    capital,
+    gotoCountry,
 }:CountryCardProps){
     return(
-        <div className="card-container">
+        <div className="card-container" onClick={gotoCountry}>
             <img alt={`${name}-flag`} className="flag-image" src={flagImage} />
             <div className="text-container">
                 <span className="country-name">{name}</span>

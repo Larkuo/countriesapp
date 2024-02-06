@@ -6,7 +6,7 @@ import {
 } from "react-icons/fa";
 
 interface FilterDropdownProps{
-    filter: (value: string) => void;
+    filter: (region: string) => void;
 }
 
 export function FilterDropdown({
@@ -38,7 +38,11 @@ export function FilterDropdown({
                                 className="list-option" 
                                 onClick={() => {
                                     setSelectedRegion(data);
-                                    filter(data.toLowerCase());
+                                    if(data === "Filter by Region"){
+                                        filter("");
+                                    }else{
+                                        filter(data.toLowerCase());
+                                    }
                                     toggleShowRegions();
                                 }}
                             >
