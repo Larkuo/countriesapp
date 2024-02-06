@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import { CountriesContainer } from '../pages';
+import { CountriesPage } from '../pages';
 
 function App() {
   return (
-    <CountriesContainer />
+    <CountriesPage />
   );
 }
 

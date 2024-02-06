@@ -1,1 +1,1 @@
-export * from "./Countries/CountriesContainer";
+export * from "./CountriesPage/CountriesPage";
