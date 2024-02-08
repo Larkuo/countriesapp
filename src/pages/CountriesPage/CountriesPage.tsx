@@ -6,6 +6,8 @@ import {
     FilterDropdown,
     SearchBar,
 } from "../../components";
+import { useNavigate } from "react-router-dom";
+import { CountryDetailsProps } from "../CountryDetailsPage/CountryDetailsPage.props";
 
 
 export function CountriesPage(){
@@ -14,6 +16,8 @@ export function CountriesPage(){
     const [renderCountries, setRenderCountries] = useState<any>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [filterRegion, setFilterRegion] = useState("");
+
+    const navigate = useNavigate();
 
     function searchAndFilter(){
         if(filterRegion !== "" && searchTerm !== ""){
@@ -37,6 +41,10 @@ export function CountriesPage(){
         }else{
             setRenderCountries(countries);
         }
+    }
+
+    function gotoCountry(countryCode: string){
+        navigate(`/details/${countryCode}`);
     }
 
     useEffect(() => {
@@ -65,7 +73,7 @@ export function CountriesPage(){
                 <FilterDropdown filter={(region) => setFilterRegion(region)} />
             </div>
             <div className="countries-list">
-                {renderCountries.length > 0 && renderCountries.map((country: any, index: number) => 
+                {renderCountries.length > 0 && renderCountries.map((country: CountryDetailsProps, index: number) => 
                     <CountryCard 
                         key={index}
                         name={country.name.official}
@@ -73,7 +81,7 @@ export function CountriesPage(){
                         population={country.population} 
                         region={country.region} 
                         capital={country.capital && country.capital[0]}
-                        gotoCountry={() => {}}
+                        gotoCountry={() => gotoCountry(country.cca3)}
                     />
                 )}
             </div>

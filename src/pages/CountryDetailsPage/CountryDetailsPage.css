@@ -1,0 +1,154 @@
+.page-view{
+    display: flex;
+    flex-direction: column;
+    width: 91vw;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 20%;
+    padding-left: 0px;
+    margin: 0px;
+}
+
+.back-container{
+    width: 100%;
+    padding: 5%;
+}
+
+.details-container{
+    width: 100%;
+    padding-top: 5%;
+    padding-bottom: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    height: max-content;
+}
+
+.country-image{
+    width: 45%;
+    height: auto;
+}
+
+.details-text-container{
+    width: 50%;
+    height: 100%;
+    justify-content: flex-start;
+}
+
+.text-container-top{
+    width: 100%;
+}
+
+.name-title{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.details-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
+.detail-text{
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#currencies{
+    text-transform: capitalize;
+}
+
+.details-left{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.details-right{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-container-bottom{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+.borders-container{
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.border-label{
+    margin-right: 10px;
+}
+
+.border-button{
+    border: none;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+@media(max-width: 650px){
+    .details-container{
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .country-image{
+        width: 90%;
+        margin-bottom: 50px;
+        margin-top: 30px;
+    }
+
+    .details-text-container{
+        width: 90%;
+    }
+
+    .text-container-top{
+        flex-direction: column;
+    }
+
+    .details-section{
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    .details-left, .details-right{
+        width: 100%;
+    }
+
+    .details-right{
+        margin-top: 30px;
+    }
+
+    .text-container-bottom{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .borders-container{
+        width: 100%;
+    }
+}

@@ -1,10 +1,17 @@
 import React from 'react';
 import './App.css';
-import { CountriesPage } from '../pages';
+import { Route, Routes } from "react-router-dom";
+import { 
+  CountriesPage,
+  CountryDetailsPage
+} from '../pages';
 
 function App() {
   return (
-    <CountriesPage />
+    <Routes>
+      <Route path="/" element={<CountriesPage />} />
+      <Route path="/details/:countryCode" element={<CountryDetailsPage />} />
+    </Routes>
   );
 }
 

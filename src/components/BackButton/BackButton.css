@@ -1,0 +1,29 @@
+.back-button{
+    width: 8.5%;
+    height: 35px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    border: none;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.back-icon{
+    font-size: 14px;
+    color: black;
+    margin-right: 10%;
+}
+
+.back-text{
+    font-size: 14px;
+    color: black;
+}
+
+@media(max-width: 650px){
+    .back-button{
+        width: 30%;
+    }
+}
