@@ -4,7 +4,8 @@
     align-items: center;
     height: 100%;
     border: none;
-    background-color: white;
+    background-color: inherit;
+    color: inherit;
 }
 
 .app-mode-icon{

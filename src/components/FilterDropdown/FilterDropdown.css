@@ -20,17 +20,10 @@
     box-sizing: border-box;
 }
 
-.filter-icon{
-    color: black;
-    font-size: 14px;
-}
-
 .filter-list{
     width: 100%;
     z-index: 5;
     border-radius: 5px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    background-color: white;
     margin-top: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -39,7 +32,6 @@
 
 .list-option{
     border: none;
-    background-color: white;
     width: 100%;
     font-size: 14px;
     padding-left: 5%;

@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./CountryDetailsPage.css";
 import { AppHeader, BackButton } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { BorderCountryProps, CountryDetailsProps } from "./CountryDetailsPage.props";
+import { ThemeContext } from "../../theme/ThemeContext";
+import { colors } from "../../theme/theme";
 const countriesData = require("./data.json");
 
 export function CountryDetailsPage(){
-    const { countryCode } = useParams();
-    const navigate = useNavigate();
-
     const EMPTY_COUNTRY_DETAILS: CountryDetailsProps = {
         name: {common: "", nativeName: {}, official: ""},
         borders: [],
@@ -26,11 +25,34 @@ export function CountryDetailsPage(){
         cioc: ""
     }
 
+    const { countryCode } = useParams();
+    const navigate = useNavigate();
+    const {theme} = useContext(ThemeContext);
+
     const [countryDetails, setCountryDetails] = useState<CountryDetailsProps>(EMPTY_COUNTRY_DETAILS);
     const [countryBorders, setCountryBorders] = useState<BorderCountryProps[]>([]);
     const [nativeName, setNativeName] = useState("");
     const [countryCurrencies, setCountryCurrenies] = useState("");
     const [pageLoading, setPageLoading] = useState(false);
+
+    const styles = {
+        pageView:theme === "light" ? {
+            backgroundColor: colors.light.background,
+            color: colors.light.text
+        } : {
+            backgroundColor: colors.dark.background,
+            color: colors.dark.text,
+        },
+        borderButton:theme === "light" ? {
+            backgroundColor: colors.light.background,
+            boxShadow: `${colors.light.boxShadow} 0px 2px 8px 0px`,
+            color: colors.light.text
+        } : {
+            backgroundColor: colors.dark.background,
+            boxShadow: `${colors.dark.boxShadow} 0px 2px 8px 0px`,
+            color: colors.dark.text,
+        },
+    }
 
     async function getCountryDetails(){
         const response = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
@@ -88,7 +110,7 @@ export function CountryDetailsPage(){
     },[countryDetails]);
 
     return(
-        <div className="page-view">
+        <div className="page-view" style={styles.pageView}>
             <AppHeader />
             <div className="back-container">
                 <BackButton goBack={() => navigate(-1)}/>
@@ -121,7 +143,8 @@ export function CountryDetailsPage(){
                                     <div className="borders-container">
                                         {countryBorders.map((border: BorderCountryProps, index: number) => 
                                             <button 
-                                                className="border-button" 
+                                                className="border-button"
+                                                style={styles.borderButton}
                                                 key={index} 
                                                 onClick={() => gotoBorder(border.code)}
                                             >{border.name}</button>

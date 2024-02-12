@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./CountryCard.css";
+import { colors } from "../../theme/theme";
+import { ThemeContext } from "../../theme/ThemeContext";
 
 interface CountryCardProps{
     name: string;
@@ -18,8 +20,22 @@ export function CountryCard({
     capital,
     gotoCountry,
 }:CountryCardProps){
+    const {theme} = useContext(ThemeContext);
+
+    const styles = {
+        cardContainer:theme === "light" ? {
+            backgroundColor: colors.light.background,
+            boxShadow: `${colors.light.boxShadow} 0px 2px 8px 0px`,
+            color: colors.light.text
+        } : {
+            backgroundColor: colors.dark.background,
+            boxShadow: `${colors.dark.boxShadow} 0px 2px 8px 0px`,
+            color: colors.dark.text
+        },
+    }
+    
     return(
-        <div className="card-container" onClick={gotoCountry}>
+        <div className="card-container" onClick={gotoCountry} style={styles.cardContainer}>
             <img alt={`${name}-flag`} className="flag-image" src={flagImage} />
             <div className="text-container">
                 <span className="country-name">{name}</span>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./CountriesPage.css";
 import { 
     AppHeader,
@@ -8,16 +8,18 @@ import {
 } from "../../components";
 import { useNavigate } from "react-router-dom";
 import { CountryDetailsProps } from "../CountryDetailsPage/CountryDetailsPage.props";
+import { ThemeContext } from "../../theme/ThemeContext";
+import { colors } from "../../theme/theme";
 
 
 export function CountriesPage(){
+    const navigate = useNavigate();
+    const {theme} = useContext(ThemeContext);
 
     const [countries, setCountries] = useState<any>([]);
     const [renderCountries, setRenderCountries] = useState<any>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [filterRegion, setFilterRegion] = useState("");
-
-    const navigate = useNavigate();
 
     function searchAndFilter(){
         if(filterRegion !== "" && searchTerm !== ""){
@@ -47,6 +49,16 @@ export function CountriesPage(){
         navigate(`/details/${countryCode}`);
     }
 
+    const styles = {
+        countriesView:theme === "light" ? {
+            backgroundColor: colors.light.background,
+            color: colors.light.text
+        } : {
+            backgroundColor: colors.dark.background,
+            color: colors.dark.text,
+        }
+    }
+
     useEffect(() => {
         fetch('https://restcountries.com/v3.1/all')
             .then(response => response.json())
@@ -66,7 +78,7 @@ export function CountriesPage(){
     }, [searchTerm, filterRegion]);
 
     return(
-        <div id="countriesView" className="countries-view">
+        <div id="countriesView" className="countries-view" style={styles.countriesView}>
             <AppHeader />
             <div id="searchFilterBar" className="search-filter-bar">
                 <SearchBar search={(term) => setSearchTerm(term)}/>
