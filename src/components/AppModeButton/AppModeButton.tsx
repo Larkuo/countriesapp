@@ -1,6 +1,6 @@
 import React from "react";
 import "./AppModeButton.css";
-import { HiOutlineMoon } from "react-icons/hi2";
+import { HiOutlineMoon, HiMoon } from "react-icons/hi2";
 
 interface AppModeButtonProps{}
 

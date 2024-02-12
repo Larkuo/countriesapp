@@ -106,6 +106,7 @@
     align-items: center;
     font-size: 14px;
     border-radius: 5px;
+    width: 25%;
 }
 
 @media(max-width: 650px){
@@ -150,5 +151,9 @@
 
     .borders-container{
         width: 100%;
+    }
+
+    .border-button{
+        width: 30%;
     }
 }

@@ -3,6 +3,7 @@ import "./CountryDetailsPage.css";
 import { AppHeader, BackButton } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { BorderCountryProps, CountryDetailsProps } from "./CountryDetailsPage.props";
+const countriesData = require("./data.json");
 
 export function CountryDetailsPage(){
     const { countryCode } = useParams();
@@ -31,49 +32,39 @@ export function CountryDetailsPage(){
     const [countryCurrencies, setCountryCurrenies] = useState("");
     const [pageLoading, setPageLoading] = useState(false);
 
-    function getCountryDetails(){
-        fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`)
-            .then(response => response.json())
-            .then(data => {
-                setCountryDetails(data[0]);
-            });
+    async function getCountryDetails(){
+        const response = await fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`);
+        const data = await response.json();
 
-        console.log("got countryDetails: ", {countryDetails});
+        if(response.ok){
+            setCountryDetails(data[0]);
+        }else{
+            alert('Could not get country details. Check the country code & reload the page to try again');
+        }
     }
 
     function getNativeName(){
         const nativeNames = Object.values(countryDetails.name.nativeName);
+
         if(nativeNames.length > 0){
             setNativeName(nativeNames[nativeNames.length-1]["common"]);
-        }else{
-            setNativeName(countryDetails.name.common);
         }
-        
-        console.log("got nativeName: ", {nativeName});
     }
 
-    function getBorderCountries(){
-        let borderList: BorderCountryProps[] = [];
-
-        countryDetails.borders && countryDetails.borders.map((borderCode: string, index: number) => {
-            fetch(`https://restcountries.com/v3.1/alpha/${borderCode}`)
-                .then(response => response.json())
-                .then(data => {
-                    const borderCountry = data[0];
-                    const listItem = {
-                        code: borderCode,
-                        name: borderCountry.name.common
-                    };
-                    borderList.push(listItem);
+    function getCountryBorders(){
+        if(countryDetails.borders){
+            const borderList: BorderCountryProps[] = countriesData.filter((border: any) => 
+                countryDetails.borders.includes(border['alpha3Code'])).map((country: any, index: number) => {
+                    return {
+                        code: country['alpha3Code'],
+                        name: country['name']
+                    }
                 });
-        });
-
-        setCountryBorders(borderList);
-
-        console.log("got countryBorders: ", {borderList, countryBorders});
+            setCountryBorders(borderList);
+        }
     }
 
-    function getCurrencies(){
+    function getCountryCurrencies(){
         const currencies = Object.values(countryDetails.currencies);
         let currencyList: string[] = [];
 
@@ -82,33 +73,19 @@ export function CountryDetailsPage(){
         });
 
         setCountryCurrenies(currencyList.join(", "));
-
-        console.log("got countryCurrencies: ", {countryCurrencies});
     }
 
     function gotoBorder(countryCode: string){
         navigate(`/details/${countryCode}`);
     }
 
-    // console.log({countryCurrencies, countryBorders, nativeName});
-
     useEffect(() => {
-        setPageLoading(true);
-        console.log(`==============${countryDetails.name.common}=====================`);
-
-        getCountryDetails();
-        getBorderCountries();
-        getNativeName();
-        getCurrencies();
-
-        console.log(`=======================================`);
-        setPageLoading(false);
-
-        // return() => {
-        //     // setCountryBorders([]);
-        //     // setPageLoading(false);
-        // }
-    },[countryCode]);
+        getCountryDetails().then(() => {
+            getNativeName();
+            getCountryBorders()
+            getCountryCurrencies();
+        });
+    },[countryDetails]);
 
     return(
         <div className="page-view">
